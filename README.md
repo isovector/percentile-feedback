@@ -6,6 +6,8 @@ Percentile feedback implementation
 
 Based on code by Nick Winter, made available under the Apache License 2.0.
 
+Read more about percentile feedback on [Seth Robert's blog](http://blog.sethroberts.net/category/percentile-feedback/).
+
 ## Setup
 
 Run `log.py SECONDS` to log a period of time.
