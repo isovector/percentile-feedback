@@ -56,8 +56,6 @@ def template(periods_txt):
             dates[date].append((started, completed))
 
     lines = []
-    lines.append("<!-- START -->")
-    lines.append("<script>")
 
     utcnow = datetime.datetime.utcnow()
     today = utcnow.strftime("%Y-%m-%d")
@@ -76,8 +74,6 @@ def template(periods_txt):
         obj = jsobj(date, dates[date])
         lines.append("past_wrs.push(%s);" % obj)
 
-    lines.append("</script>")
-    lines.append("<!-- STOP -->")
     return "\n".join(lines)
 
 def main():
@@ -87,23 +83,15 @@ def main():
         sys.exit(2)
 
     ppf = os.path.dirname(os.path.realpath(__file__))
-    index_html = os.path.join(ppf, "index.html")
+    periods_js = os.path.join(ppf, "periods.js")
     periods_txt = os.path.join(ppf, "periods.txt")
 
     with open(periods_txt, "a") as f:
         for period in periods(duration):
             f.write(period + "\n")
 
-    region = re.compile(r"(?ms)<!-- START -->(.*)<!-- STOP -->")
-
-    with open(index_html, "r") as f:
-        text = f.read()
-
-    script = template(periods_txt)
-    text = region.sub(script, text)
-
-    with open(index_html, "w") as f:
-        f.write(text.rstrip() + "\n")
+    with open(periods_js, "w") as f:
+        f.write(template(periods_txt)+ "\n")
 
 if __name__ == "__main__":
     main()
