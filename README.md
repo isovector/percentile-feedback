@@ -22,7 +22,9 @@ Run `log.py SECONDS` to log `SECONDS` of time.
 
 This command logs your data to the `periods.txt` file, which is authoritative record of your work time. Keep it safe. The `data.js` file is then generated each time from the `periods.js` file.
 
-If you're using a tool that is able to call a script with a number of seconds, this method will work for you. One example is a Pomodoro tool that executes some AppleScript upon completion.
+If you're using a tool that is able to call a script with a number of seconds, this method will work for you. One example is a Pomodoro app that executes some AppleScript upon completion.
+
+There is an app called [Timer](http://martakostova.github.io/timer/) that is able to run AppleScript.
 
 The AppleScript might look something like this:
 
@@ -34,6 +36,8 @@ display notification "Logged 60 minutes of work!"
 This calls `log.py` with 3600 seconds (one hour) and displays a system notification.
 
 The `PATH` variable is set manually, because Python 3 is installed under `/usr/local/bin` on OS X with [Homebrew](http://brew.sh/) and AppleScript does not pick up your customised `PATH`, so you need to set it explicitly.
+
+If you are using a UNIX-like system, there may be similar things you can do. If you have a neat idea for this, please open an issue or submit a pull request!
 
 ### Emacs
 
