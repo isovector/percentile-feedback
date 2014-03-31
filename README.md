@@ -47,11 +47,9 @@ Your Org file will look like this:
 
 ```
 * Sample Task
-:LOGBOOK:
 CLOCK: [2014-03-31 Mon 16:50]--[2014-03-31 Mon 17:32] =>  0:42
 CLOCK: [2014-03-31 Mon 15:23]--[2014-03-31 Mon 15:51] =>  0:28
 CLOCK: [2014-03-31 Mon 15:03]--[2014-03-31 Mon 15:10] =>  0:07
-:END:
 ```
 
 Run `org.py FILE` to create the `data.js` file.
