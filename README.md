@@ -56,6 +56,23 @@ CLOCK: [2014-03-31 Mon 15:03]--[2014-03-31 Mon 15:10] =>  0:07
 
 Run `org.py FILE` to create the `data.js` file.
 
+Alternatively, configure Emacs to run this command every time you save the file.
+
+```lisp
+;; Org clock percentile feedback integration
+
+(setq my-org-file "/path/to/times.org")
+(setq my-org-py "/path/to/percentile-feedback/org.py")
+
+(defun process-org-file ()
+  (let ((name (buffer-file-name)))
+    (when (string-equal name my-org-file)
+      (shell-command (concat "python3 " my-org-py " " my-org-file))
+      (message "Processed org file"))))
+
+(add-hook 'after-save-hook 'process-org-file)
+```
+
 ## License
 
 Licenced under the Apache License 2.0.
