@@ -83,14 +83,14 @@ def main():
         sys.exit(2)
 
     ppf = os.path.dirname(os.path.realpath(__file__))
-    periods_js = os.path.join(ppf, "periods.js")
+    data_js = os.path.join(ppf, "data.js")
     periods_txt = os.path.join(ppf, "periods.txt")
 
     with open(periods_txt, "a") as f:
         for period in periods(duration):
             f.write(period + "\n")
 
-    with open(periods_js, "w") as f:
+    with open(data_js, "w") as f:
         f.write(template(periods_txt)+ "\n")
 
 if __name__ == "__main__":
