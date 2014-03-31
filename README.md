@@ -65,10 +65,9 @@ Alternatively, configure Emacs to run this command every time you save the file.
 (setq my-org-py "/path/to/percentile-feedback/org.py")
 
 (defun process-org-file ()
-  (let ((name (buffer-file-name)))
-    (when (string-equal name my-org-file)
-      (shell-command (concat "python3 " my-org-py " " my-org-file))
-      (message "Processed org file"))))
+  (when (string-equal (buffer-file-name) my-org-file)
+    (shell-command (concat "python3 " my-org-py " " my-org-file))
+    (message "Processed org file")))
 
 (add-hook 'after-save-hook 'process-org-file)
 ```
