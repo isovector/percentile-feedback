@@ -46,7 +46,7 @@ def template(orgfile):
 
     p = []
     with open(orgfile) as f:
-        for line in f:
+        for line in sorted(f):
             if "CLOCK" not in line:
                 continue
             try:
@@ -60,7 +60,7 @@ def template(orgfile):
             if completed > started:
                 p.extend(periods(completed, (completed - started).seconds))
 
-    for line in sorted(p):
+    for line in p:
         line = line.rstrip()
         try:
             date, started, completed = line.split(" ")
