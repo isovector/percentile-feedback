@@ -83,7 +83,7 @@ function generatePercentileFeedbackGraph() {
   // Skip the update sometimse if we're not working, to save on memory leaking
   if(chart && !$('#pf_timer_button').hasClass('working') && Math.random() < 0.75)
     return;
-  
+
   var past_histogram = generatePercentileWorkHistogram(
     past_wrs, past_bucket_interval);
   var today_histogram = generatePercentileWorkHistogram(
@@ -160,7 +160,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     chart.destroy();
   chart = new Highcharts.Chart({
     chart: {
-      renderTo: 'percentile_feedback', 
+      renderTo: 'percentile_feedback',
       defaultSeriesType: 'scatter',
       zoomType: 'xy',
       backgroundColor: 'transparent'
