@@ -169,7 +169,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
       text: 'Work Efficiency by Hour of Day'
     },
     subtitle: {
-      text: '% Hours Spent on Dev (compared to the past)'
+      text: '% Hours Worked (compared to the past)'
     },
     xAxis: {
       title: {
@@ -185,7 +185,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     },
     yAxis: {
       title: {
-        text: 'Percent of Hours Spent on Dev'
+        text: 'Work Efficiency'
       },
       min: 0,
       max: 100
@@ -193,7 +193,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     tooltip: {
       formatter: function() {
         return ''+
-          this.x.toFixed(2) +' hours since 04:00, '+ this.y.toFixed(2) +'% time utilized for dev (' + (this.x * this.y / 100).toFixed(2) + ' hours worked)';
+           (this.x * this.y / 100).toFixed(2) + '/' + this.x.toFixed(2) + ' hours worked ('+ this.y.toFixed(2) +'% efficiency)';
       }
     },
     legend: {
