@@ -1,10 +1,7 @@
 function getNow() {
   var d = new Date();
   var now = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1E3;
-  if(d.getHours() > 4)
-    now += (d.getHours() - 4) * 3600;
-  else
-    now += (d.getHours() + 20) * 3600;
+  now += d.getHours() * 3600;
   return now;
 }
 
@@ -234,7 +231,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     xAxis: {
       title: {
         enabled: true,
-        text: 'Hours since 04:00'
+        text: 'Hours since 00:00'
       },
       tickInterval: 4,
       startOnTick: true,
