@@ -77,6 +77,30 @@ function refreshPage() {
   location.reload(true);
 }
 
+function next_boundary(start, interval) {
+  // For example, let's consider a start of 7230
+  // This is 3600 + 3600 + 30, i.e. 02:00:30, thirty seconds past 2am
+
+  var sinceLastBoundary = start % interval;
+  // Example: 7230 % 3600 = 30
+  // That's the time elapsed since the last interval boundary
+  // The last interval boundary was 7200 (3600 * 2, i.e. 2am)
+
+  var untilNextBoundary = interval - sinceLastBoundary;
+  // Example: 3600 - 30 = 3570
+  // This is the time until the next interval boundary
+  // In other words, we're 30 seconds after 2am
+  // So now there's another 3600 seconds (1 hour) - 30 seconds to go
+  // That's 3570 seconds
+
+  var nextBoundary = start + untilNextBoundary;
+  // Example: 7230 + 3570 = 10800
+  // This is the time we're at now plus the time until the next boundary
+  // In this case it adds up to 10800, which is 3600 * 3, i.e. 3am
+
+  return nextBoundary;
+}
+
 var past_bucket_interval = 60 * 60; // should divide 86400 evenly
 var today_bucket_interval = 1 * 60; // should divide past_bucket_interval evenly
 function generatePercentileFeedbackGraph() {
@@ -111,10 +135,46 @@ function generatePercentileWorkHistogram(wrs, interval, ends_early) {
         else  // probably some past day we never hit stop for
           stop = start + 1;
       }
-      for(time = start; time < stop; time += interval) {
-        var timeToAdd = time == start ? (time + interval) % interval : interval;
-        for(var cumulative = time; cumulative < day_end; cumulative += interval)
-          histogram[i][Math.floor(cumulative / interval)] += timeToAdd;
+      while (start < stop) {
+        var nextBoundary = next_boundary(start, interval);
+        var new_start;
+        var new_stop;
+
+        // Is there an interval between start and stop?
+        if (nextBoundary < stop) {
+          // Yes, there is an interval boundary
+          new_start = nextBoundary;
+          new_stop = stop;
+          // This next line must come after the two above
+          stop = nextBoundary;
+          // We break this period up so that the current start and stop are the
+          // time *up until* the next interval boundary. Then we also set the
+          // new start time to correspond to the next interval boundary.
+          // So imagine that we have:
+          //   start    |   stop
+          // Where "|" is an interval boundary
+          // What we've done is to make replacements like so:
+          //   start   stop/new_start    new_stop
+        } else {
+          // No, there is no interval boundary
+          new_start = 0;
+          new_stop = 0;
+          // We set these values so that the loop will end
+          // (This acts a bit like a break sentinel)
+        }
+
+        // Do histogram population stuff
+        var period = stop - start;
+        var start_bucket = Math.floor((nextBoundary - interval) / interval);
+        // This should be checked for fencepost errors
+        // May also not work with certain interval settings
+        var end_bucket = Math.floor(day_end / interval);
+        for (var bucket = start_bucket; bucket <= end_bucket; bucket++) {
+          histogram[i][bucket] += period;
+        }
+
+        start = new_start;
+        stop = new_stop;
       }
     }
   }
