@@ -12,7 +12,7 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 
 <dl>
 <dt>What is custom midnight?</dt>
-<dd>@@</dd>
+<dd>By default, the graph origin starts at midnight. But if you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph. To get around this problem, you can specify a custom midnight. Say, 6am. This marks the point you <em>actually</em> consider it to be a new day.</dd>
 <dt>How are past data points plotted?</dt>
 <dd>@@</dd>
 <dt>How is the percentile value calculated?</dt>
