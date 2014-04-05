@@ -11,21 +11,31 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 ## Questions
 
 <dl>
+
 <dt>What is custom midnight?</dt>
-<dd>By default, the graph origin starts at midnight. But if you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph. To get around this problem, you can specify a custom midnight. Say, 6am. This marks the point you <em>actually</em> consider it to be a new day.</dd>
-<dt>How are past data points plotted?</dt>
-<dd>@@</dd>
-<dt>Why does my percentile show as "50%" when I very nearly beat my most productive day so far?
-</dt>
-<dd>
-<p>Percentiles are more like ranks. Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
+
+<dd><p>By default, the graph origin starts at midnight.
+
+<p>If you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph.
+
+<p>To get around this problem, you can specify a custom midnight. Say, 6am. This marks the point you <em>actually</em> consider it to be a new day.</dd>
+
+<dt>Why are past data points spaced irregulrly? This doesn't look like my data.</dt>
+
+<dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They represent where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
+
+<p>Additionally, they are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
+
+<dt>Why does my percentile show as "50%" when I very nearly beat my most productive day so far?</dt>
+
+<dd><p>Percentiles are more like ranks. Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
 
 <p>Now, imagine if instead of ranks such as "1st" and so on, we mapped these into percentages instead. 1st becomes 100%, 2nd becomes 50%, and 3rd becomes 0%. This is why if you logged two previous days, and then very nearly beat your most productive day on the third day, your percentile score will be 50%. Even though you came very close, you're still 2nd!
 
 <p>So, why not just say "2nd" instead of 50%? Well, think about what happens when you log more days. Imagine that on the 5th day, you have your least productive day so far, and so you're 5th. In this case, "5th" means last. Now imagine that after logging 60 days, you come 5th. In this case, 5th is one of your most productive days! In other words, if you come 5th in a race with only five people in it, then you're last. If you came 5th in a race with 60 people in it, then you did quite well. In fact, you finished in the top 8.33% of all competitors. This is your percentile score.
 
-<p>Percentile scores are a way of giving a normalised rank out of the total number of competitors. When you're competing against your previous scores, you'll have much more finely balanced percentiles the more days you log.
-</dd>
+<p>Percentile scores are a way of giving a normalised rank out of the total number of competitors. When you're competing against your previous scores, you'll have much more finely balanced percentiles the more days you log.</dd>
+
 </dl>
 
 ## Running
