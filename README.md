@@ -28,17 +28,17 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 
 <dt>What does "PR 50" mean?</dt>
 
-<dd><p>It means you are at the 50th [percentile rank](http://en.wikipedia.org/wiki/Percentile_rank), meaning your efficiency today is greater than or equal to 50% of your previous days.</dd>
+<dd><p>PR is short for percentile rank. If you are at the 50th <a href="http://en.wikipedia.org/wiki/Percentile_rank">percentile rank</a>, your efficiency today is greater than or equal to 50% of your previous days.</dd>
 
 <dt>Why am I at the 50th percentile rank when I very nearly beat my most productive day so far?</dt>
 
-<dd><p>Percentiles are ranks. Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
+<dd><p>Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
 
 <p>Now, imagine if instead of ranks such as "1st" and so on, we mapped these into percentages instead. 1st becomes 100%, 2nd becomes 50%, and 3rd becomes 0%. This is why if you logged two previous days, and then very nearly beat your most productive day on the third day, your percentile score will be 50%. Even though you came very close, you're still 2nd!
 
-<p>So, why not just say "2nd" instead of 50%? Well, think about what happens when you log more days. Imagine that on the 5th day, you have your least productive day so far, and so you're 5th. In this case, "5th" means last. Now imagine that after logging 60 days, you come 5th. In this case, 5th is one of your most productive days! In other words, if you come 5th in a race with only five people in it, then you're last. If you came 5th in a race with 60 people in it, then you did quite well. In fact, you finished in the top 8.33% of all competitors. This is your percentile score.
+<p>So, why not just say "2nd" instead of 50%? Well, think about what happens when you log more days. Imagine that on the 5th day, you have your least productive day so far, and so you're 5th. In this case, "5th" means last. Now imagine that after logging 60 days, you come 5th. In this case, 5th is one of your most productive days! In other words, if you come 5th in a race with only five people in it, then you're last. If you came 5th in a race with 60 people in it, then you did quite well. In fact, you finished in the top 91.66% of all competitors. This is your percentile rank.
 
-<p>Percentile scores are a way of giving a normalised rank out of the total number of competitors. When you're competing against your previous scores, you'll have much more finely balanced percentiles the more days you log.</dd>
+<p>Percentile ranks are therefore not dependant on the number of competitors. And as you compete against more of your previous scores, your rank will begin to appear more precise.</dd>
 
 </dl>
 
