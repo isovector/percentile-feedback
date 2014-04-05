@@ -1,3 +1,5 @@
+var compensation = midnight_seconds / 3600;
+
 function getNow() {
   var d = new Date();
   var now = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1E3;
@@ -116,7 +118,7 @@ function generatePercentileFeedbackGraph() {
 function generatePercentileWorkHistogram(wrs, interval, ends_early) {
   // TODO: randomize the start time a bit so that there's jitter
   var histogram = [];
-  var day_end = ends_early ? getNow() : 86400;
+  var day_end = ends_early ? getNow() - midnight_seconds : 86400;
 
   for(var i = 0; i < wrs.length; ++i) {
     histogram.push([]);
@@ -128,7 +130,7 @@ function generatePercentileWorkHistogram(wrs, interval, ends_early) {
       var stop = wr.stops[j];
       if(typeof stop == "undefined") {
         if(wrs.length == 1)  // probably today; probably still working
-          stop = getNow();
+          stop = getNow() - midnight_seconds;
         else  // probably some past day we never hit stop for
           stop = start + 1;
       }
@@ -204,13 +206,13 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
       var x = bucket * past_bucket_interval / 3600;
       var y = 100 * past_histogram[day][bucket] / ((1 + bucket) * past_bucket_interval);
       var jitter = 1.0 * (Math.random() - 0.5);
-      past_chart_data.push([x + jitter, y]);
+      past_chart_data.push([x + jitter + compensation, y]);
     }
   var today_chart_data = [];
   for(var bucket = 0; bucket < today_histogram[0].length; ++bucket) {
     var x = bucket * today_bucket_interval / 3600;
     var y = 100 * today_histogram[0][bucket] / ((1 + bucket) * today_bucket_interval);
-    today_chart_data.push([x, y]);
+    today_chart_data.push([x + compensation, y]);
   }
 
   if(chart)
@@ -231,14 +233,14 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     xAxis: {
       title: {
         enabled: true,
-        text: 'Hours since ' + midnight
+        text: 'Hour, starting at ' + midnight
       },
-      tickInterval: 4,
-      startOnTick: true,
-      endOnTick: true,
+      tickInterval: 2,
+      startOnTick: false,
+      endOnTick: false,
       showLastLabel: true,
-      min: 0,
-      max: 24
+      min: 0 + compensation,
+      max: 24 + compensation
     },
     yAxis: {
       title: {

@@ -145,6 +145,7 @@ def python_to_javascript(dates, midnight=None):
     else:
         epoch = "00:00"
     lines.append("var midnight = \"%s\";" % epoch)
+    lines.append("var midnight_seconds = %s;" % (midnight or 0))
 
     now = datetime.datetime.now()
     today = now.strftime("%Y-%m-%d")
