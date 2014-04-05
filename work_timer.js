@@ -273,15 +273,15 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
       align: 'right',
       verticalAlign: 'top',
       x: 0,
-      y: 50,
+      y: 55,
       floating: true,
       backgroundColor: 'rgba(255, 255, 255, 0.1)',
       borderWidth: 1
     },
     labels: {
       items: [{
-        html: "<h2>" + today_percentile.toFixed(0) + "%</h2>",
-	style: {left: '32px', top: '-32px', "font-size": '32px',
+        html: "PR " + today_percentile.toFixed(0),
+	style: {left: '10px', top: '32px', "font-size": '36px',
 		color: 'rgb(30, 216, 15)'}
       }]
     },
