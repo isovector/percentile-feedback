@@ -14,7 +14,7 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 
 <dt>What is custom midnight?</dt>
 
-<dd><p>By default, the graph origin starts at midnight.
+<dd><p>By default, each new day (and hence the graph origin) starts at midnight.
 
 <p>If you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph.
 
@@ -22,9 +22,9 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 
 <dt>Why are past data points spaced irregulrly? This doesn't look like my data.</dt>
 
-<dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They represent where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
+<dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They show you where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
 
-<p>Additionally, they are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
+<p>They are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
 
 <dt>Why does my percentile show as "50%" when I very nearly beat my most productive day so far?</dt>
 
