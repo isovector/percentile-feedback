@@ -6,7 +6,7 @@ Percentile feedback implementation
 
 Based on [code by Nick Winter](http://www.nickwinter.net/codecombat-stats), made available under the Apache License 2.0.
 
-Read more about percentile feedback on [Seth Robert's blog](http://blog.sethroberts.net/category/percentile-feedback/).
+Read more about percentile feedback on [Seth Roberts's blog](http://blog.sethroberts.net/category/percentile-feedback/).
 
 ## Questions
 
