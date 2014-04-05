@@ -182,7 +182,7 @@ def main():
     parser.add_argument("--convert-org", metavar="PATH",
                         help="Convert an org-mode file to data.js")
     parser.add_argument("--log-period", metavar="SECONDS",
-                        help="Log a period in seconds")
+                        help="Log a period, and update data.js")
     args = parser.parse_args()
 
     midnight = None
@@ -191,6 +191,17 @@ def main():
         midnight = (int(hours) * 3600) + (int(minutes) * 60)
 
     directory = os.path.dirname(os.path.realpath(__file__))
+
+    if args.log_period is not None:
+        periods_txt = os.path.join(directory, "periods.txt")
+        with open(periods_txt, "a") as f:
+            now = datetime.datetime.now()
+            duration = int(args.log_period)
+            for period in periods(now, duration):
+                f.write(period + "\n")
+
+        if args.convert_log is None:
+            args.convert_log = periods_txt
 
     if args.convert_log is not None:
         js = log_to_javascript(args.convert_log, midnight=midnight)
@@ -202,14 +213,6 @@ def main():
         js = org_to_javascript(args.convert_org, midnight=midnight)
         with open(os.path.join(directory, "data.js"), "w") as f:
             f.write(js)
-        sys.exit()
-
-    if args.log_period is not None:
-        with open(os.path.join(directory, "periods.txt"), "a") as f:
-            now = datetime.datetime.now()
-            duration = int(args.log_period)
-            for period in periods(now, duration):
-                f.write(period + "\n")
         sys.exit()
 
     parser.print_help()
