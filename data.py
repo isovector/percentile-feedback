@@ -176,12 +176,12 @@ def org_to_javascript(org, midnight=None):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--midnight", help="Set midnight, as HH:MM")
-    parser.add_argument("--convert-log", metavar="PATH",
+    parser.add_argument("-m", "--midnight", help="Set midnight, as HH:MM")
+    parser.add_argument("-l", "--convert-log", metavar="PATH",
                         help="Convert a log file to data.js")
-    parser.add_argument("--convert-org", metavar="PATH",
+    parser.add_argument("-o", "--convert-org", metavar="PATH",
                         help="Convert an org-mode file to data.js")
-    parser.add_argument("--log-period", metavar="SECONDS",
+    parser.add_argument("-p", "--log-period", metavar="SECONDS",
                         help="Log a period, and update data.js")
     args = parser.parse_args()
 
