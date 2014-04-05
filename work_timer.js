@@ -231,7 +231,7 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     xAxis: {
       title: {
         enabled: true,
-        text: 'Hours since 00:00'
+        text: 'Hours since ' + midnight
       },
       tickInterval: 4,
       startOnTick: true,
