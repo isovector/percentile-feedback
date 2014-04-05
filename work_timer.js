@@ -222,7 +222,13 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
       renderTo: 'percentile_feedback',
       defaultSeriesType: 'scatter',
       zoomType: 'xy',
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      resetZoomButton: {
+        position: {
+	    x: 0,
+	    y: -30
+	}
+      }
     },
     title: {
       text: 'Work Efficiency by Hour of Day'
