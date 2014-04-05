@@ -266,8 +266,8 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     labels: {
       items: [{
         html: "<h2>" + today_percentile.toFixed(0) + "%</h2>",
-        style: {left: '800px', top: '60px', "font-size": '32px',
-                color: 'rgb(30, 216, 15)'}
+	style: {left: '32px', top: '-32px', "font-size": '32px',
+		color: 'rgb(30, 216, 15)'}
       }]
     },
     plotOptions: {
