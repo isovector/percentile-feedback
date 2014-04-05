@@ -26,9 +26,13 @@ Read more about percentile feedback on [Seth Robert's blog](http://blog.sethrobe
 
 <p>They are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
 
-<dt>Why does my percentile show as "50%" when I very nearly beat my most productive day so far?</dt>
+<dt>What does "PR 50" mean?</dt>
 
-<dd><p>Percentiles are more like ranks. Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
+<dd><p>It means you are at the 50th [percentile rank](http://en.wikipedia.org/wiki/Percentile_rank), meaning your efficiency today is greater than or equal to 50% of your previous days.</dd>
+
+<dt>Why am I at the 50th percentile rank when I very nearly beat my most productive day so far?</dt>
+
+<dd><p>Percentiles are ranks. Imagine that you're competing in a race with two other people. Whatever order you all finish in, the positions are 1st, 2nd, and 3rd. If you win by just one second, you still get the gold medal for coming 1st, just as you do when you beat your closest competitor by several minutes.
 
 <p>Now, imagine if instead of ranks such as "1st" and so on, we mapped these into percentages instead. 1st becomes 100%, 2nd becomes 50%, and 3rd becomes 0%. This is why if you logged two previous days, and then very nearly beat your most productive day on the third day, your percentile score will be 50%. Even though you came very close, you're still 2nd!
 
