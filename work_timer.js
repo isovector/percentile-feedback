@@ -1,5 +1,3 @@
-var compensation = midnight_seconds / 3600;
-
 function getNow() {
   var d = new Date();
   var now = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1E3;
@@ -200,19 +198,20 @@ function calculatePercentile(past_wrs, today_histogram) {
 
 var chart = false;
 function generatePercentileWorkChart(past_histogram, today_histogram, today_percentile) {
+  var hoff = (midnight_seconds / 3600) % 1;
   var past_chart_data = [];
   for(var day = 0; day < past_histogram.length; ++day)
     for(var bucket = 0; bucket < past_histogram[day].length; ++bucket) {
       var x = bucket * past_bucket_interval / 3600;
       var y = 100 * past_histogram[day][bucket] / ((1 + bucket) * past_bucket_interval);
       var jitter = 1.0 * (Math.random() - 0.5);
-      past_chart_data.push([x + jitter + compensation, y]);
+      past_chart_data.push([x + jitter + hoff, y]);
     }
   var today_chart_data = [];
   for(var bucket = 0; bucket < today_histogram[0].length; ++bucket) {
     var x = bucket * today_bucket_interval / 3600;
     var y = 100 * today_histogram[0][bucket] / ((1 + bucket) * today_bucket_interval);
-    today_chart_data.push([x + compensation, y]);
+    today_chart_data.push([x + hoff, y]);
   }
 
   if(chart)
@@ -246,14 +245,15 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
       startOnTick: false,
       endOnTick: false,
       showLastLabel: true,
-      min: 0.5 + compensation,
-      max: 22.5 + compensation,
+      min: 0.5 + hoff,
+      max: 22.5 + hoff,
       categories: ["00", "01", "02", "03", "04", "05",
                    "06", "07", "08", "09", "10", "11",
                    "12", "13", "14", "15", "16", "17",
                    "18", "19", "20", "21", "22", "23",
                    "00", "02", "03", "04", "05", "06",
-                   "07", "08", "09", "10", "11", "12"]
+                   "07", "08", "09", "10", "11", "12"].slice(
+                     Math.floor(midnight_seconds / 3600))
     },
     yAxis: {
       title: {
