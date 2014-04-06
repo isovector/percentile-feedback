@@ -69,7 +69,10 @@ def org_to_python(org):
                 sc = tstr.findall(line)
                 strptime = datetime.datetime.strptime
                 started = strptime(sc[0], "%Y-%m-%d %a %H:%M")
-                completed = strptime(sc[1], "%Y-%m-%d %a %H:%M")
+                if len(sc) > 1:
+                    completed = strptime(sc[1], "%Y-%m-%d %a %H:%M")
+                else:
+                    completed = datetime.datetime.now()
             except:
                 continue
             if completed > started:
