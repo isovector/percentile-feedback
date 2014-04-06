@@ -12,20 +12,6 @@ Read more about percentile feedback on [Seth Roberts's blog](http://blog.sethrob
 
 <dl>
 
-<dt>What is custom midnight?</dt>
-
-<dd><p>By default, each new day (and hence the graph origin) starts at midnight.
-
-<p>If you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph.
-
-<p>To get around this problem, you can specify a custom midnight. Say, 6am. This marks the point you <em>actually</em> consider it to be a new day.</dd>
-
-<dt>Why are past data points spaced irregulrly? This doesn't look like my data.</dt>
-
-<dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They show you where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
-
-<p>They are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
-
 <dt>What does "PR 50" mean?</dt>
 
 <dd><p>PR is short for percentile rank. If you are at the 50th <a href="http://en.wikipedia.org/wiki/Percentile_rank">percentile rank</a>, your efficiency today is greater than or equal to 50% of your previous days.</dd>
@@ -39,6 +25,20 @@ Read more about percentile feedback on [Seth Roberts's blog](http://blog.sethrob
 <p>So, why not just say "2nd" instead of 50%? Well, think about what happens when you log more days. Imagine that on the 5th day, you have your least productive day so far, and so you're 5th. In this case, "5th" means last. Now imagine that after logging 60 days, you come 5th. In this case, 5th is one of your most productive days! In other words, if you come 5th in a race with only five people in it, then you're last. If you came 5th in a race with 60 people in it, then you did quite well. In fact, you finished in the top 91.67% of all competitors. This is your percentile rank.
 
 <p>Percentile ranks are therefore not dependant on the number of competitors. And as you compete against more of your previous scores, your rank will begin to appear more precise.</dd>
+
+<dt>Why are past data points spaced irregulrly? This doesn't look like my data.</dt>
+
+<dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They show you where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
+
+<p>They are spaced irregularly so that we are sampling as many different points along the x-axis as possible. If we sampled at regular intervals, our past data would stack up in 24 evenly spaced columns. This can look strange when you only have a few days data, but as you start to add more data, you'll see how the dots start to cluster in meaningful ways.</dd>
+
+<dt>What is custom midnight?</dt>
+
+<dd><p>By default, each new day (and hence the graph origin) starts at midnight.
+
+<p>If you typically wake up at 8am, the first 8 hours of your graph are going to show zero hours worked. And when you finally start working, your efficiency score is going to be very low. Conversly, if you're a bit of a night owl, any work you do after midnight is going to show up on the next day's graph.
+
+<p>To get around this problem, you can specify a custom midnight. Say, 6am. This marks the point you <em>actually</em> consider it to be a new day.</dd>
 
 </dl>
 
