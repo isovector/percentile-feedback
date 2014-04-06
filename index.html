@@ -2,6 +2,8 @@
 <meta charset="utf-8">
 <title>Percentile Feedback</title>
 <script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="highcharts.js"></script>
 
 <div id="pf_timer" class="big_graph">
   <h3>Work time today: <span id="pf_timer_today_total"></span></h3>
@@ -9,16 +11,5 @@
   <h4>All-time total: <span id="pf_timer_all_time_total"></span></h4>
 </div>
 
-<script src="bootstrap.min.js"></script>
-<script src="highcharts.js"></script>
 <script src="data.js"></script>
-<script src="work_timer.js"></script>
-<script>
-$(document).ready(function() {
-  generatePercentileFeedbackGraph();
-  updateWorkTime();
-  updateInterval = setInterval(updateWorkTime, 1000);
-  setTimeout(refreshPage, refresh_delay * 1000);
-  setInterval(generatePercentileFeedbackGraph, 10 * 60 * 1000);
-});
-</script>
+<script src="plot.js"></script>

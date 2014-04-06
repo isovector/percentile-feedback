@@ -1,57 +1,31 @@
 function getNow() {
   var d = new Date();
-  var now = d.getMinutes() * 60 + d.getSeconds() + d.getMilliseconds() / 1E3;
-  now += d.getHours() * 3600;
-  return now;
+  var now = d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  return now - midnight_seconds;
 }
 
-function workTimeToday() {
+function workTime(wr) {
   var total = 0;
-  for(var i = 0; i < today_wr.starts.length; ++i) {
-    var start = today_wr.starts[i];
-    var stop = today_wr.stops[i];
-    if(typeof stop == 'undefined')
+  for (var i = 0; i < wr.starts.length; ++i) {
+    var start = wr.starts[i];
+    var stop = wr.stops[i];
+    if (typeof stop == 'undefined')
       stop = getNow();
     total += stop - start;
   }
   return total;
 }
 
-function workTimeTotal() {
-  var total = 0;
-  for(var i = 0; i < past_wrs.length; ++i) {
-    past_wr = past_wrs[i];
-    for(var j = 0; j < past_wr.starts.length; ++j) {
-      var start = past_wr.starts[j];
-      var stop = past_wr.stops[j];
-      if(typeof stop == 'undefined')
-        stop = getNow();
-      total += stop - start;
-    }
-  }
-  return total;
+function workTimeToday() {
+  return workTime(today_wr);
 }
 
-function togglePFWork() {
-  var b = $('#pf_timer_button');
-  b.toggleClass('working');
-  var working = b.hasClass('working');
-  $.post('/work/' + (working ? 'start' : 'stop'), function(response) {
-    if(response == "success")
-      b.text(working ? "Stop" : "Start");
-    else {
-      console.log("error toggling work status:", response);
-      b.toggleClass('working');
-    }
-  });
-  if(working) {
-    today_wr.starts.push(getNow());
-    updateInterval = setInterval(updateWorkTime, 1000);
+function workTimeTotal() {
+  var total = 0;
+  for (var i = 0; i < past_wrs.length; ++i) {
+    total += workTime(past_wrs[i]);
   }
-  else {
-    today_wr.stops.push(getNow());
-    clearInterval(updateInterval);
-  }
+  return total;
 }
 
 function updateWorkTime() {
@@ -59,19 +33,14 @@ function updateWorkTime() {
   $('#pf_timer_all_time_total').text(formatTime(workTimeTotal()));
 }
 
-function formatTime(s) {
-  var timeString = Math.floor(s % 60).toString();
-  if(timeString.length == 1)
-    timeString = "0" + timeString;
-  timeString = Math.floor((s % 3600) / 60).toString() + ":" + timeString;
-  if(timeString.length == 4)
-    timeString = "0" + timeString;
-  timeString = Math.floor(s / 3600).toString() + ":" + timeString;
-  return timeString;
-}
-
-function refreshPage() {
-  location.reload(true);
+// Or secondsToTime
+function formatTime(sec) {
+  var hours = Math.floor(sec / 3600);
+  var minutes = Math.floor((sec % 3600) / 60);
+  var seconds = sec % 60;
+  if (minutes < 10) { minutes = "0" + minutes; }
+  if (seconds < 10) { seconds = "0" + seconds; }
+  return hours + ":" + minutes + ":" + seconds;
 }
 
 function next_boundary(start, interval) {
@@ -98,39 +67,22 @@ function next_boundary(start, interval) {
   return nextBoundary;
 }
 
-var past_bucket_interval = 60 * 60; // should divide 86400 evenly
-var today_bucket_interval = 1 * 60; // should divide past_bucket_interval evenly
-function generatePercentileFeedbackGraph() {
-  // Skip the update sometimse if we're not working, to save on memory leaking
-  if(chart && !$('#pf_timer_button').hasClass('working') && Math.random() < 0.75)
-    return;
-
-  var past_histogram = generatePercentileWorkHistogram(
-    past_wrs, past_bucket_interval);
-  var today_histogram = generatePercentileWorkHistogram(
-    [today_wr], today_bucket_interval, true);
-  var today_percentile = calculatePercentile(past_wrs, today_histogram);
-  generatePercentileWorkChart(past_histogram, today_histogram, today_percentile);
-}
-
-function generatePercentileWorkHistogram(wrs, interval, ends_early) {
+function generateHistogram(wrs, interval, ends_early) {
   // TODO: randomize the start time a bit so that there's jitter
   var histogram = [];
-  var day_end = ends_early ? getNow() - midnight_seconds : 86400;
+  var day_end = ends_early ? getNow() : 86400;
 
-  for(var i = 0; i < wrs.length; ++i) {
+  for (var i = 0; i < wrs.length; ++i) {
     histogram.push([]);
-    for(var time = 0; time < day_end; time += interval)
+    for (var time = 0; time < day_end; time += interval)
       histogram[i].push(0);
     var wr = wrs[i];
-    for(var j = 0; j < wr.starts.length; ++j) {
+    for (var j = 0; j < wr.starts.length; ++j) {
       var start = wr.starts[j];
       var stop = wr.stops[j];
-      if(typeof stop == "undefined") {
-        if(wrs.length == 1)  // probably today; probably still working
-          stop = getNow() - midnight_seconds;
-        else  // probably some past day we never hit stop for
-          stop = start + 1;
+      if (typeof stop == "undefined") {
+        // Either today (still working), or some past day that overran
+        stop = wrs.length == 1 ? getNow() : start + 1;
       }
       while (start < stop) {
         var nextBoundary = next_boundary(start, interval);
@@ -175,47 +127,63 @@ function generatePercentileWorkHistogram(wrs, interval, ends_early) {
       }
     }
   }
-  if(ends_early)
-    histogram[0].pop();  // last value isn't quite right
-  //console.log(histogram);
+  // TODO: is this still needed? if (ends_early) { histogram[0].pop(); }
   return histogram;
 }
 
 function calculatePercentile(past_wrs, today_histogram) {
-  if(!past_wrs.length) return 100;
+  if (!past_wrs.length) return 100;
   var today_total = today_histogram[0][today_histogram[0].length - 1];
   var better_day_count = 0;
-  for(var i = 0; i < past_wrs.length; ++i) {
+  for (var i = 0; i < past_wrs.length; ++i) {
     var wr = past_wrs[i];
-    var histogram = generatePercentileWorkHistogram(
-      [wr], today_bucket_interval, true);
+    var histogram = generateHistogram([wr], today_bucket_interval, true);
     var total = histogram[0][histogram[0].length - 1];
-    if(total > today_total)
+    if (total > today_total)
       ++better_day_count;
   }
   return 100 * (1 - (better_day_count / past_wrs.length));
 }
 
+var past_bucket_interval = 60 * 60; // should divide 86400 evenly
+var today_bucket_interval = 1 * 60; // should divide past_bucket_interval evenly
+var hoff = (midnight_seconds / 3600) % 1;
 var chart = false;
-function generatePercentileWorkChart(past_histogram, today_histogram, today_percentile) {
-  var hoff = (midnight_seconds / 3600) % 1;
+
+function plotPoint(data, histogram, day, bucket, interval, jitter) {
+  var x = bucket * interval / 3600;
+  var y = 100 * histogram[day][bucket] / ((1 + bucket) * interval);
+  if (jitter) { x += 1.0 * (Math.random() - 0.5); }
+  data.push([x + hoff, y]);
+}
+
+function generateChart() {
+  // Skip the update sometimes if we're not working, to save on memory leaking
+  if (chart && Math.random() < 0.75)
+    return;
+
+  var past_histogram = generateHistogram(past_wrs, past_bucket_interval);
+  var today_histogram = generateHistogram(
+    [today_wr], today_bucket_interval, true);
+  var today_percentile = calculatePercentile(past_wrs, today_histogram);
+
   var past_chart_data = [];
-  for(var day = 0; day < past_histogram.length; ++day)
-    for(var bucket = 0; bucket < past_histogram[day].length; ++bucket) {
-      var x = bucket * past_bucket_interval / 3600;
-      var y = 100 * past_histogram[day][bucket] / ((1 + bucket) * past_bucket_interval);
-      var jitter = 1.0 * (Math.random() - 0.5);
-      past_chart_data.push([x + jitter + hoff, y]);
+  for (var day = 0; day < past_histogram.length; ++day) {
+    for (var bucket = 0; bucket < past_histogram[day].length; ++bucket) {
+      plotPoint(past_chart_data, past_histogram, day, bucket,
+                past_bucket_interval, true);
     }
-  var today_chart_data = [];
-  for(var bucket = 0; bucket < today_histogram[0].length; ++bucket) {
-    var x = bucket * today_bucket_interval / 3600;
-    var y = 100 * today_histogram[0][bucket] / ((1 + bucket) * today_bucket_interval);
-    today_chart_data.push([x + hoff, y]);
   }
 
-  if(chart)
+  var today_chart_data = [];
+  for (var bucket = 0; bucket < today_histogram[0].length; ++bucket) {
+    plotPoint(today_chart_data, today_histogram, 0, bucket,
+              today_bucket_interval, false);
+  }
+
+  if (chart)
     chart.destroy();
+
   chart = new Highcharts.Chart({
     chart: {
       renderTo: 'percentile_feedback',
@@ -265,7 +233,8 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     tooltip: {
       formatter: function() {
         return ''+
-           (this.x * this.y / 100).toFixed(2) + '/' + this.x.toFixed(2) + ' hours worked ('+ this.y.toFixed(2) +'% efficiency)';
+          (this.x * this.y / 100).toFixed(2) + '/' + this.x.toFixed(2) +
+          ' hours worked ('+ this.y.toFixed(2) +'% efficiency)';
       }
     },
     legend: {
@@ -319,3 +288,11 @@ function generatePercentileWorkChart(past_histogram, today_histogram, today_perc
     }]
   });
 }
+
+$(document).ready(function() {
+  generateChart();
+  updateWorkTime();
+  updateInterval = setInterval(updateWorkTime, 1000);
+  setTimeout(function() { location.reload(true); }, refresh_delay * 1000); // ??
+  setInterval(generateChart, 10 * 60 * 1000); // ten minutes
+});
