@@ -151,6 +151,8 @@ def python_to_javascript(dates, midnight=None):
     lines.append("var midnight_seconds = %s;" % (midnight or 0))
 
     now = datetime.datetime.now()
+    if midnight is not None:
+        now = now - datetime.timedelta(seconds=midnight)
     today = now.strftime("%Y-%m-%d")
     if today in dates:
         obj = javascript_object(today, dates[today])

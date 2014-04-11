@@ -1,6 +1,9 @@
 function getNow() {
   var d = new Date();
   var now = d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  if (now < midnight_seconds) {
+    now = now + (3600 * 24);
+  }
   return now - midnight_seconds;
 }
 
