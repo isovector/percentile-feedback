@@ -20,7 +20,16 @@ function workTime(wr) {
 }
 
 function workTimeToday() {
-  return workTime(today_wr);
+  var today = new Date();
+  var year = today.getFullYear() === today_wr.date.getFullYear();
+  var month = today.getMonth() === today_wr.date.getMonth();
+  var day = today.getDate() === today_wr.date.getDate();
+
+  if (year && month && day) {
+    return workTime(today_wr);
+  } else {
+    return 0;
+  }
 }
 
 function workTimeTotal() {

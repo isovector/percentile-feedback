@@ -83,7 +83,8 @@ def org_to_python(org):
 
 def iso2js(date):
     # helper function for javascript_object
-    return ", ".join([str(int(p)) for p in date.split("-")])
+    y, m, d = date.split("-")
+    return "%s, %s, %s" % (int(y), int(m) - 1, int(d))
 
 def javascript_object(date, pairs):
     starts = []
