@@ -26,7 +26,7 @@ Read more about percentile feedback on [Seth Roberts's blog](http://blog.sethrob
 
 <p>Percentile ranks are therefore not dependant on the number of competitors. And as you compete against more of your previous scores, your rank will begin to appear more precise.</dd>
 
-<dt>Why are past data points spaced irregulrly? This doesn't look like my data.</dt>
+<dt>Why are past data points spaced irregularly? This doesn't look like my data.</dt>
 
 <dd><p>Past data points do not directly correspond to the time periods you logged. Instead, they are samples. They show you where the green line would have been at that particular time on that particular day, even if you did not log anything at that time.
 
