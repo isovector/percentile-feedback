@@ -124,12 +124,17 @@ def compensate(dates, midnight):
             else:
                 completed = completed - midnight
 
-            if sday != cday:
-                raise ValueError("work was conducted through midnight")
             if sday not in compensated:
                 compensated[sday] = []
+
             # Adding ints for now, so that we can sort them afterwards
-            compensated[sday].append((started, completed))
+            if sday != cday:
+                if cday not in compensated:
+                    compensated[cday] = []
+                compensated[sday].append((started, 24 * 3600))
+                compensated[cday].append((0, completed))
+            else:
+                compensated[sday].append((started, completed))
 
     # Sort the items, and stringify them
     for day in compensated:
