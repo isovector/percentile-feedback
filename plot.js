@@ -35,7 +35,7 @@ function workTimeToday(wr) {
 function workTimeTotal() {
   var total = 0;
   for (var i = 0; i < past_wrs.length; ++i) {
-    total += workTime(past_wrs[i]);
+    total += workTimeToday(past_wrs[i]);
   }
   return total;
 }
