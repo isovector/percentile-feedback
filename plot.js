@@ -139,7 +139,7 @@ function generateHistogram(wrs, interval, ends_early) {
       }
     }
   }
-  // TODO: is this still needed? if (ends_early) { histogram[0].pop(); }
+  if (ends_early) { histogram[0].pop(); }
   return histogram;
 }
 
