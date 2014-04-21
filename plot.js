@@ -7,7 +7,20 @@ function getNow() {
   return now - midnight_seconds;
 }
 
-function workTime(wr) {
+function checkCurrentDay() {
+  var today = new Date();
+
+  // today_wr is a global inherited from data.js
+  var year = today.getFullYear() === today_wr.date.getFullYear();
+  var month = today.getMonth() === today_wr.date.getMonth();
+  var day = today.getDate() === today_wr.date.getDate();
+
+  if ((!year) || (!month) || (!day)) {
+    today_wr = {date: today, starts: [], stops: []};
+  }
+}
+
+function workTimeToday(wr) {
   var total = 0;
   for (var i = 0; i < wr.starts.length; ++i) {
     var start = wr.starts[i];
@@ -19,19 +32,6 @@ function workTime(wr) {
   return total;
 }
 
-function workTimeToday() {
-  var today = new Date();
-  var year = today.getFullYear() === today_wr.date.getFullYear();
-  var month = today.getMonth() === today_wr.date.getMonth();
-  var day = today.getDate() === today_wr.date.getDate();
-
-  if (year && month && day) {
-    return workTime(today_wr);
-  } else {
-    return 0;
-  }
-}
-
 function workTimeTotal() {
   var total = 0;
   for (var i = 0; i < past_wrs.length; ++i) {
@@ -41,7 +41,7 @@ function workTimeTotal() {
 }
 
 function updateWorkTime() {
-  $('#pf_timer_today_total').text(formatTime(workTimeToday()));
+  $('#pf_timer_today_total').text(formatTime(workTimeToday(today_wr)));
   $('#pf_timer_all_time_total').text(formatTime(workTimeTotal()));
 }
 
@@ -302,6 +302,7 @@ function generateChart() {
 }
 
 $(document).ready(function() {
+  checkCurrentDay();
   generateChart();
   updateWorkTime();
   updateInterval = setInterval(updateWorkTime, 1000);
