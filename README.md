@@ -64,9 +64,7 @@ Load the configuration by running:
 launchctl load local.pfserver.plist
 ```
 
-You can also `unload` this file if you need to. Once loaded, you can `start`, and `stop` the `local.pfserver` agent to start and stop the server.
-
-If you want the server to start on login, copy the `local.pfserver.plist` file to your `~/Library/LaunchAgents` directory.
+You can also `unload` this file if you need to. Once loaded, you can `start`, and `stop` the `local.pfserver` agent to start and stop the server. If you want the server to start on login, copy the `local.pfserver.plist` file to your `~/Library/LaunchAgents` directory.
 
 ### Manual
 
