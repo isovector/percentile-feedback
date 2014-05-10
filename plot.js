@@ -9,6 +9,12 @@ function getNow() {
 
 function checkCurrentDay() {
   var today = new Date();
+  // If we're past midnight and before midnight_seconds, we need yesterday
+  var now = d.getHours() * 3600 + d.getMinutes() * 60 + d.getSeconds();
+  if (now < midnight_seconds) {
+    // Set date to yesterday
+    today.setDate(today.getDate() - 1);
+  }
 
   // today_wr is a global inherited from data.js
   var year = today.getFullYear() === today_wr.date.getFullYear();
