@@ -54,7 +54,7 @@ This file can be created however you like. At the moment, there are only a handf
 
 ### Server
 
-Accessing the HTML via a `file:///` URI does not work for some things. If you're facing this proble, you can set up a simple server.
+Accessing the HTML via a `file` URI scheme does not work for some things. If you're facing this problem, you can set up a simple server.
 
 Copy `local.pfserver.plist.tpl` to `local.pfserver.plist` and edit. Replace `PATH` with the path to the directory containing your `index.html` file.
 
@@ -64,7 +64,13 @@ Load the configuration by running:
 launchctl load local.pfserver.plist
 ```
 
-You can also `unload` this file if you need to. Once loaded, you can `start`, and `stop` the `local.pfserver` agent to start and stop the server. If you want the server to start on login, copy the `local.pfserver.plist` file to your `~/Library/LaunchAgents` directory.
+Once loaded, you start the server by running:
+
+```
+launchctl start local.pfserver
+```
+
+Consult the `launchctl` man page for more information. If you want the server to start on login, copy the `local.pfserver.plist` file to your `~/Library/LaunchAgents` directory.
 
 ### Manual
 
