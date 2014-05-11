@@ -151,4 +151,4 @@ Licenced under the Apache License 2.0.
 
 See [LICENCE.md](LICENSE.md) and [NOTICE.md](NOTICE.md) for more information.
 
-*Notice: this tool currently uses the Highcharts JS library, which is not open source license. See [#43](https://github.com/nslater/percentile-feedback/issues/43) for details.*
+*Notice: this tool currently uses the Highcharts JS library, which is not open source. See [#43](https://github.com/nslater/percentile-feedback/issues/43) for details.*
