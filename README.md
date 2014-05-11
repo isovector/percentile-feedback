@@ -143,7 +143,7 @@ Alternatively, configure Emacs to run this command every time you save the file.
 
 ### HTML Widget
 
-You can use a HTML widget to display the graph where ever you can display widgets.
+You can use a HTML widget to display the graph wherever you can display widgets.
 
 The OS X dashboard, for instance, allows you to clip a web page. Mach Desktop does something similar, but allows you to display a web page on your desktop.
 
