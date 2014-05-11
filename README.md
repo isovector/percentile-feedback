@@ -149,7 +149,7 @@ The OS X dashboard, for instance, allows you to clip a web page. [Mach Desktop](
 
 This sort of thing increases the visibility of the graph, thereby increasing its motiviational power.
 
-### Menu Bar
+### Menu Bar
 
 There is no OS X Menu Bar client right now, but this would be a good idea. Pull requests welcome!
 
