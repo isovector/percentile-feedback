@@ -151,11 +151,11 @@ This sort of thing increases the visibility of the graph, thereby increasing its
 
 ### Menu Bar
 
-There is no OS X Menu Bar client right now, but this would be a good idea. PRs welcome!
+There is no OS X Menu Bar client right now, but this would be a good idea. Pull requests welcome!
 
 ### Google Chrome
 
-There is an experimental Google Chrome extension that displays your live PR. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
+There is an experimental Google Chrome extension that displays a live PR. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
 
 ## License
 
