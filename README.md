@@ -127,6 +127,12 @@ Alternatively, configure Emacs to run this command every time you save the file.
 (add-hook 'after-save-hook 'process-org-file)
 ```
 
+## Integrations
+
+### Google Chrome
+
+There is an experimental Google Chrome extension. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
+
 ## License
 
 Licenced under the Apache License 2.0.
