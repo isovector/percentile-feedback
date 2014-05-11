@@ -150,3 +150,5 @@ There is an experimental Google Chrome extension that displays your live PR. Ena
 Licenced under the Apache License 2.0.
 
 See [LICENCE.md](LICENSE.md) and [NOTICE.md](NOTICE.md) for more information.
+
+*Notice: this tool currently uses the Highcharts JS library, which is not available under an open source license. Issue [#43](https://github.com/nslater/percentile-feedback/issues/43) will track replacing this library.*
