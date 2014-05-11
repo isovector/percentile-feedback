@@ -141,6 +141,10 @@ Alternatively, configure Emacs to run this command every time you save the file.
 
 ## Clients
 
+### Makeshift
+
+You can roll a makeshift client by just loading the HTML in a widget. You can do this on the OS X dashboard. Or you can use a tool like Mach Desktop to display a HTML on the desktop.
+
 ### Google Chrome
 
 There is an experimental Google Chrome extension that displays your live PR. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
