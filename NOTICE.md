@@ -3,7 +3,7 @@
 Unless otherwise stated:
 
 ```
-Copyright 2014, the percentile-feedback contributors
+Copyright 2014, the project contributors
 ```
 
 For `jquery.min.js`:
