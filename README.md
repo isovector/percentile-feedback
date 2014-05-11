@@ -131,7 +131,7 @@ Alternatively, configure Emacs to run this command every time you save the file.
 
 ### Google Chrome
 
-There is an experimental Google Chrome extension. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
+There is an experimental Google Chrome extension that displays your live PR. Enable developer mode via the Chrome extensions page. Then load the `extension` directory as an unpacked extension.
 
 ## License
 
