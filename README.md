@@ -4,6 +4,19 @@ Percentile feedback implementation
 
 ## About
 
+This tool allows you to:
+
+- Track your time throughout the day
+- See how today's efficiency compares to all previous days
+- Calculate a percentile rank (PR) for that efficiency
+- Do something about a low PR at any point (by logging more time)
+
+In effect it puts you in competition with all your past selves as you try to be more productive.
+
+Here's what it might look like over the course of a day:
+
+![](demo.gif)
+
 Based on [code by Nick Winter](http://www.nickwinter.net/codecombat-stats), made available under the Apache License 2.0.
 
 Read more about percentile feedback on [Seth Roberts's blog](http://blog.sethroberts.net/category/percentile-feedback/).
