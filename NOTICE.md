@@ -6,6 +6,12 @@ Unless otherwise stated:
 Copyright 2014, the project contributors
 ```
 
+For `bootstrap.min.js`:
+
+```
+Copyright (c) 2011-2014 Twitter, Inc
+```
+
 For `jquery.min.js`:
 
 ```
