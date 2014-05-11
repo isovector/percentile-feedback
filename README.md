@@ -6,12 +6,11 @@ Percentile feedback implementation
 
 This tool allows you to:
 
-- Track your time throughout the day
-- See how today's efficiency compares to all previous days
-- Calculate a percentile rank (PR) for that efficiency
-- Do something about a low PR at any point (by logging more time)
+- Log your time and track efficiency throughout the day
+- Rank that efficiency against all previous days
+- Do something about a low rank at any point (by logging more time)
 
-In effect it puts you in competition with all your past selves as you try to be more productive.
+In effect, this puts you in competition with all your past selves as you try to be more productive.
 
 Here's what it might look like over the course of a day:
 
