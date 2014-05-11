@@ -72,7 +72,7 @@ launchctl start local.pfserver
 
 Consult the `launchctl` man page for more information. If you want the server to start on login, copy the `local.pfserver.plist` file to your `~/Library/LaunchAgents` directory.
 
-## Using
+## Adding Data
 
 ### Manual
 
