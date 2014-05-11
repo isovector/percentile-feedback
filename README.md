@@ -145,7 +145,9 @@ Alternatively, configure Emacs to run this command every time you save the file.
 
 You can use a HTML widget to display the graph where ever you can display widgets.
 
-The OS X dashboard, for instance, allows you to clip a web page. Mach Desktop does something similar, but allows you to display a web page on your desktop. This sort of thing increases the visibility of the graph, thereby increasing its motiviational power.
+The OS X dashboard, for instance, allows you to clip a web page. Mach Desktop does something similar, but allows you to display a web page on your desktop.
+
+This sort of thing increases the visibility of the graph, thereby increasing its motiviational power.
 
 ### Menu Bar
 
