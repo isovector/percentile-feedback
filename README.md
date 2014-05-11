@@ -141,9 +141,13 @@ Alternatively, configure Emacs to run this command every time you save the file.
 
 ## Clients
 
-### Makeshift
+### HTML Widget
 
-You can roll a makeshift client by just loading the HTML in a widget. You can do this on the OS X dashboard. Or you can use a tool like Mach Desktop to display a HTML on the desktop.
+You can use a HTML widget to display the graph whereever you can display widgets. The OS X dashboard, for instance, allows you to clip a web page. Mach Desktop does something similar, but allows you to display a web page on your desktop. This sort of thing increases the visibility of the graph, thereby increasing its motiviational power.
+
+### Menu Bar
+
+There is no OS Menu Bar client right now, but this would be a good idea. PRs welcome!
 
 ### Google Chrome
 
