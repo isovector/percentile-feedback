@@ -127,7 +127,7 @@ Alternatively, configure Emacs to run this command every time you save the file.
 (add-hook 'after-save-hook 'process-org-file)
 ```
 
-## Integrations
+## Clients
 
 ### Google Chrome
 
