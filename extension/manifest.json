@@ -1,0 +1,13 @@
+{
+  "name": "Percentile Feedback Extension",
+  "description": "Shows your current percentile feedback PR",
+  "version": "0.0.0",
+  "background": { "scripts": ["icon.js"] },
+  "browser_action": {
+    "name": "Click to update manually"
+  },
+  "permissions": ["http://*/", "https://*/"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "options_page": "options.html",
+  "manifest_version": 2
+}
