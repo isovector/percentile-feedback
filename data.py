@@ -6,7 +6,7 @@ import os.path
 import re
 import sys
 
-def periods(now, duration):
+def periods(now, duration, continuous=False):
     # TODO: Error if duration > (3600 * 24)
     results = []
 
@@ -23,6 +23,8 @@ def periods(now, duration):
         args = (yesterdate, yesterstarted, yestercompleted)
         results.append("%s %s %s" % args)
 
+    if continuous:
+        completed = "-"
     args = (date, started, completed)
     results.append("%s %s %s" % args)
     return results
@@ -64,6 +66,7 @@ def org_to_python(org):
         for line in sorted(f):
             if "CLOCK" not in line:
                 continue
+            continuous = False
             try:
                 tstr = re.compile(r"\[([^\]]+)\]")
                 sc = tstr.findall(line)
@@ -73,10 +76,12 @@ def org_to_python(org):
                     completed = strptime(sc[1], "%Y-%m-%d %a %H:%M")
                 else:
                     completed = datetime.datetime.now()
+                    continuous = True
             except:
                 continue
             if completed > started:
-                log.extend(periods(completed, (completed - started).seconds))
+                secs = (completed - started).seconds
+                log.extend(periods(completed, secs, continuous))
 
     process_log_lines(dates, log)
     return dates
@@ -91,7 +96,8 @@ def javascript_object(date, pairs):
     stops = []
     for (start, stop) in pairs:
         starts.append(start)
-        stops.append(stop)
+        if stop != "-":
+            stops.append(stop)
     obj = "{date: new Date(%s), starts: [%s], stops: [%s]}"
     starts = ", ".join([start + ".0" for start in starts])
     stops = ", ".join([stop + ".0" for stop in stops])
@@ -109,8 +115,6 @@ def compensate(dates, midnight):
     for day in dates:
         for (started, completed) in dates[day]:
             started = int(started)
-            completed = int(completed)
-
             sday = day
             if started < midnight:
                 started = (3600 * 24) - midnight + started
@@ -118,12 +122,14 @@ def compensate(dates, midnight):
             else:
                 started = started - midnight
 
-            cday = day
-            if completed < midnight:
-                completed = (3600 * 24) - midnight + completed
-                cday = yesterday(day)
-            else:
-                completed = completed - midnight
+            if completed != "-":
+                completed = int(completed)
+                cday = day
+                if completed < midnight:
+                    completed = (3600 * 24) - midnight + completed
+                    cday = yesterday(day)
+                else:
+                    completed = completed - midnight
 
             if sday not in compensated:
                 compensated[sday] = []
