@@ -29,13 +29,14 @@ function updateIcon(interaction) {
 
   var req2 = new XMLHttpRequest();
   var data = page.replace(/([^\/]+)?$/, "") + "data.js";
-  req2.open("GET", data, false);
+  req2.open("GET", data + "?" + unixtime(), false);
   try { req2.send(null); }
   catch (exception) {
     req2.status === null;
   }
 
   if (req2.status === 200) {
+    console.log("Reloading data.js");
     eval.call(window, req2.responseText);
   } else {
     if (interaction) {
