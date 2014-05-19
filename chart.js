@@ -1,28 +1,13 @@
-var hoff = (midnight_seconds / 3600) % 1;
+var chart = false;
 
 function generateChart() {
   // Skip the update sometimes if we're not working, to save on memory leaking
+  var hoff = (midnight_seconds / 3600) % 1;
+
   if (chart && Math.random() < 0.75)
     return;
 
-  var past_histogram = generateHistogram(past_wrs, past_bucket_interval);
-  var today_histogram = generateHistogram(
-    [today_wr], today_bucket_interval, true);
-  var today_percentile = calculatePercentile(past_wrs, today_histogram);
-
-  var past_chart_data = [];
-  for (var day = 0; day < past_histogram.length; ++day) {
-    for (var bucket = 0; bucket < past_histogram[day].length; ++bucket) {
-      plotPoint(past_chart_data, past_histogram, day, bucket,
-                past_bucket_interval, true);
-    }
-  }
-
-  var today_chart_data = [];
-  for (var bucket = 0; bucket < today_histogram[0].length; ++bucket) {
-    plotPoint(today_chart_data, today_histogram, 0, bucket,
-              today_bucket_interval, false);
-  }
+  processData(true);
 
   if (chart)
     chart.destroy();

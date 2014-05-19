@@ -1,10 +1,3 @@
-function generatePR() {
-  var today_histogram = generateHistogram(
-    [today_wr], today_bucket_interval, true);
-  var today_percentile = calculatePercentile(past_wrs, today_histogram);
-  return today_percentile;
-}
-
 function updateIcon(interaction) {
   var icon = document.createElement("canvas");
   icon.setAttribute("height", "19");
@@ -12,32 +5,17 @@ function updateIcon(interaction) {
   context = icon.getContext("2d");
   var page = localStorage["page"] || ".";
 
-  if (typeof generateHistogram === "undefined") {
-    console.log("loading plot.js");
-    var req1 = new XMLHttpRequest();
-    var plot = page.replace(/([^\/]+)?$/, "") + "plot.js";
-    req1.open("GET", plot, false);
-    try { req1.send(null); }
-    catch (exception) {
-      req1.status === null;
-    }
-
-    if (req1.status === 200) {
-      eval.call(window, req1.responseText);
-    }
-  }
-
-  var req2 = new XMLHttpRequest();
+  var req1 = new XMLHttpRequest();
   var data = page.replace(/([^\/]+)?$/, "") + "data.js";
-  req2.open("GET", data + "?" + unixtime(), false);
-  try { req2.send(null); }
+  req1.open("GET", data + "?" + unixtime(), false);
+  try { req1.send(null); }
   catch (exception) {
-    req2.status === null;
+    req1.status === null;
   }
 
-  if (req2.status === 200) {
+  if (req1.status === 200) {
     console.log("Reloading data.js");
-    eval.call(window, req2.responseText);
+    eval.call(window, req1.responseText);
   } else {
     if (interaction) {
       alert("You need to set a page in extension options!");
@@ -54,7 +32,26 @@ function updateIcon(interaction) {
     return;
   }
 
-  var pr = generatePR();
+  // Might need a different check now
+  if (typeof generateHistogram === "undefined") {
+    console.log("loading plot.js");
+    var req2 = new XMLHttpRequest();
+    var plot = page.replace(/([^\/]+)?$/, "") + "plot.js";
+    req2.open("GET", plot, false);
+    try { req2.send(null); }
+    catch (exception) {
+      req2.status === null;
+    }
+
+    if (req2.status === 200) {
+      eval.call(window, req2.responseText);
+    }
+  }
+
+  // This isn't the best interface
+  processData();
+  var pr = today_percentile;
+
   if (pr < 50) {
     context.fillStyle = "#c00";
     context.fillRect(0, 0, 19, 19);
