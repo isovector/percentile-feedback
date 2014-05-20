@@ -32,25 +32,23 @@ function updateIcon(interaction) {
     return;
   }
 
-  // Might need a different check now
-  if (typeof generateHistogram === "undefined") {
-    console.log("loading plot.js");
-    var req2 = new XMLHttpRequest();
-    var plot = page.replace(/([^\/]+)?$/, "") + "plot.js";
-    req2.open("GET", plot, false);
-    try { req2.send(null); }
-    catch (exception) {
-      req2.status === null;
-    }
+  // This must be loaded because it captures the variables from data.js
+  // Probably ought to pass them as arguments instead
+  console.log("loading plot.js");
+  var req2 = new XMLHttpRequest();
+  var plot = page.replace(/([^\/]+)?$/, "") + "plot.js";
+  req2.open("GET", plot, false);
+  try { req2.send(null); }
+  catch (exception) {
+    req2.status === null;
+  }
 
-    if (req2.status === 200) {
-      eval.call(window, req2.responseText);
-    }
+  if (req2.status === 200) {
+    eval.call(window, req2.responseText);
   }
 
   // This isn't the best interface
-  processData();
-  var pr = today_percentile;
+  var pr = processData();
 
   if (pr < 50) {
     context.fillStyle = "#c00";

@@ -180,7 +180,7 @@
   };
 
   root.processData = function(complete) {
-    var bucket, day, past_histogram, today_histogram, _results;
+    var bucket, day, past_histogram, today_histogram;
     console.log("1");
     today_histogram = generateHistogram([today_wr], today_bucket_interval, true);
     root.today_percentile = calculatePercentile(past_wrs, today_histogram);
@@ -199,13 +199,12 @@
       }
       root.today_chart_data = [];
       bucket = 0;
-      _results = [];
       while (bucket < today_histogram[0].length) {
         plotPoint(root.today_chart_data, today_histogram, 0, bucket, today_bucket_interval, false);
-        _results.push(++bucket);
+        ++bucket;
       }
-      return _results;
     }
+    return root.today_percentile;
   };
 
 }).call(this);

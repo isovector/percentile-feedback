@@ -235,3 +235,4 @@ root.processData = (complete) ->
       plotPoint root.today_chart_data, today_histogram,
                 0, bucket, today_bucket_interval, false
       ++bucket
+  root.today_percentile
