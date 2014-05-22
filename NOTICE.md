@@ -6,16 +6,11 @@ Unless otherwise stated:
 Copyright 2014, the project contributors
 ```
 
-For `bootstrap.min.js`:
+For `d3.min.js`:
 
 ```
-Copyright (c) 2011-2014 Twitter, Inc
-```
-
-For `highcharts.js`:
-
-```
-(c) 2009-2013 Torstein Hønsi
+Copyright (c) 2010-2014, Michael Bostock
+All rights reserved.
 ```
 
 For `jquery.min.js`:
