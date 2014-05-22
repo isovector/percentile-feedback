@@ -169,14 +169,31 @@
   };
 
   root.plotPoint = function(data, histogram, day, bucket, interval, jitter) {
-    var hoff, x, y;
+    var hoff, not_a_number, x, y;
     hoff = (midnight_seconds / 3600) % 1;
     x = bucket * interval / 3600;
     y = 100 * histogram[day][bucket] / ((1 + bucket) * interval);
     if (jitter) {
       x += 1.0 * (Math.random() - 0.5);
     }
-    return data.push([x + hoff, y]);
+    if (x < 0) {
+      x = 0 - x;
+    }
+    if (x > 24) {
+      x = 48 - x;
+    }
+    if (y < 0) {
+      y = 0;
+    }
+    if (y > 100) {
+      y = 100;
+    }
+    not_a_number = function(obj) {
+      return obj !== obj;
+    };
+    if (!not_a_number(y)) {
+      return data.push([x + hoff, y]);
+    }
   };
 
   root.processData = function(complete) {

@@ -1,2 +1,5 @@
 plot.js: plot.coffee
-	coffee -c $< > $@
+	coffee -c $<
+
+chart.js: chart.coffee
+	coffee -c $<

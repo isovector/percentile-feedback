@@ -7,7 +7,6 @@ import re
 import sys
 
 def periods(now, duration, continuous=False):
-    # TODO: Error if duration > (3600 * 24)
     results = []
 
     date = now.strftime("%Y-%m-%d")
@@ -80,7 +79,12 @@ def org_to_python(org):
             except:
                 continue
             if completed > started:
-                secs = (completed - started).seconds
+                delta = completed - started
+                if delta.days:
+                    # Error, continue! TODO: Detect overlaps
+                    print "Warning, unclosed value:", line.strip()
+                    continue
+                secs = delta.seconds
                 log.extend(periods(completed, secs, continuous))
 
     process_log_lines(dates, log)
@@ -122,9 +126,9 @@ def compensate(dates, midnight):
             else:
                 started = started - midnight
 
+            cday = day
             if completed != "-":
                 completed = int(completed)
-                cday = day
                 if completed < midnight:
                     completed = (3600 * 24) - midnight + completed
                     cday = yesterday(day)

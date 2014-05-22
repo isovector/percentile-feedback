@@ -172,7 +172,7 @@ root.generateHistogram = (wrs, interval, ends_early) ->
         stop = new_stop
       ++j
     ++i
-  histogram[0].pop()  if ends_early
+  histogram[0].pop() if ends_early
   histogram
 
 # calculatePercentile
@@ -201,11 +201,23 @@ root.plotPoint = (data, histogram, day, bucket, interval, jitter) ->
   hoff = (midnight_seconds / 3600) % 1
   x = bucket * interval / 3600
   y = 100 * histogram[day][bucket] / ((1 + bucket) * interval)
-  x += 1.0 * (Math.random() - 0.5)  if jitter
+  x += 1.0 * (Math.random() - 0.5) if jitter
+
+  # Bounds checking
+  # x goes out of bounds because of jitter
+  x = 0 - x if x < 0
+  x = 48 - x if x > 24
+  # y only goes out of bounds past 100; not sure why
+  y = 0 if y < 0
+  y = 100 if y > 100
+
+  # https://stackoverflow.com/questions/2652319
+  not_a_number = (obj) ->
+    obj != obj
   data.push [
     x + hoff
     y
-  ]
+  ] unless not_a_number y
 
 # processData
 
