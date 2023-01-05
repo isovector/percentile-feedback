@@ -100,7 +100,7 @@
       histogram.push([]);
       time = 0;
       while (time < day_end) {
-        histogram[i].push(0);
+        histogram[i].push({time: 0, task: ""});
         time += interval;
       }
       wr = wrs[i];
@@ -108,6 +108,7 @@
       while (j < wr.starts.length) {
         start = wr.starts[j];
         stop = wr.stops[j];
+        task = wr.tasks[j];
         if (typeof stop === "undefined") {
           stop = (wrs.length === 1 ? getNow() : start + 1);
         }
@@ -128,7 +129,14 @@
           end_bucket = Math.floor(day_end / interval);
           bucket = start_bucket;
           while (bucket <= end_bucket) {
-            histogram[i][bucket] += period;
+            if (histogram[i] === undefined) {
+              histogram[i] = [];
+            }
+            if (histogram[i][bucket] === undefined) {
+              histogram[i][bucket] = {time: 0, task: ""};
+            }
+            histogram[i][bucket].time += period;
+            histogram[i][bucket].task = task;
             bucket++;
           }
           start = new_start;
@@ -153,13 +161,13 @@
     if (!past_wrs.length) {
       return 100;
     }
-    today_total = today_histogram[0][today_histogram[0].length - 1];
+    today_total = today_histogram[0][today_histogram[0].length - 1].time;
     better_day_count = 0;
     i = 0;
     while (i < past_wrs.length) {
       wr = past_wrs[i];
       histogram = generateHistogram([wr], today_bucket_interval, true);
-      total = histogram[0][histogram[0].length - 1];
+      total = histogram[0][histogram[0].length - 1].time;
       if (total > today_total) {
         ++better_day_count;
       }
@@ -172,7 +180,7 @@
     var hoff, not_a_number, x, y;
     hoff = (midnight_seconds / 3600) % 1;
     x = bucket * interval / 3600;
-    y = 100 * histogram[day][bucket] / ((1 + bucket) * interval);
+    y = 100 * histogram[day][bucket].time / ((1 + bucket) * interval);
     if (jitter) {
       x += 1.0 * (Math.random() - 0.5);
     }
@@ -192,7 +200,7 @@
       return obj !== obj;
     };
     if (!not_a_number(y)) {
-      return data.push([x + hoff, y]);
+      return data.push([x + hoff, y, histogram[day][bucket].task]);
     }
   };
 
