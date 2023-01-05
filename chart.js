@@ -5,7 +5,7 @@
       str = str + ""
       var hash = 0;
       for (var i = 0; i < str.length; i++) {
-        hash = (str.charCodeAt(i) + ((hash << 5) - hash) * 2);
+        hash = (str.charCodeAt(i) + ((hash << 5) - hash));
       }
       var colour = '#';
       for (var i = 0; i < 3; i++) {
@@ -109,7 +109,10 @@
                 cy: yMap,
                 r: 2
             })
-            .style("fill", "#aaa");
+            .style("opacity", 0.25)
+            .attr({
+              fill: taskColor
+            });
         svg.append("g")
             .selectAll("circle")
             .data(today_chart_data)
@@ -122,7 +125,7 @@
             })
             .attr({
               fill: taskColor
-            })
+            });
         return svg.append("text")
             .attr("class", "pr")
             .attr("x", 20)
